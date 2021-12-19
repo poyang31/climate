@@ -1,0 +1,3 @@
+database:
+  dsn: mongodb://localhost:27017/
+  name: climate

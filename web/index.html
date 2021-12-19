@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Climate</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@2.0.0"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="static/js/index.js" type="module"></script>
+  </head>
+  <body>
+    <div id="app">
+      <nav class="bg-gray-800">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div class="relative flex items-center justify-between h-16">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <!-- Mobile menu button-->
+              <button
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+                class="
+                  inline-flex
+                  items-center
+                  justify-center
+                  p-2
+                  rounded-md
+                  text-gray-400
+                  hover:text-white hover:bg-gray-700
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-inset
+                  focus:ring-white
+                "
+                type="button"
+              >
+                <span class="sr-only">Open main menu</span>
+                <!--
+                        Icon when menu is closed.
+      
+                        Heroicon name: outline/menu
+      
+                        Menu open: "hidden", Menu closed: "block"
+                      -->
+                <svg
+                  aria-hidden="true"
+                  class="block h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  @click="show_menu=!show_menu"
+                >
+                  <path
+                    d="M4 6h16M4 12h16M4 18h16"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+                <!--
+                        Icon when menu is open.
+      
+                        Heroicon name: outline/x
+      
+                        Menu open: "block", Menu closed: "hidden"
+                      -->
+                <svg
+                  aria-hidden="true"
+                  class="hidden h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="
+                flex-1 flex
+                items-center
+                justify-center
+                sm:items-stretch sm:justify-start
+              "
+            >
+              <button
+                class="flex-shrink-0 flex items-center text-white"
+                @click="go('/')"
+              >
+                [ Climate ]
+              </button>
+              <div class="hidden sm:block sm:ml-6">
+                <div class="flex space-x-4">
+                  <button
+                    v-for="(i, j) in menu"
+                    :key="j"
+                    :aria-current="isCurrent(i.target) ? 'current' : ''"
+                    class="px-3 py-2 rounded-md text-sm font-medium"
+                    :class="{
+                      'bg-gray-900': isCurrent(i.target),
+                      'text-white': isCurrent(i.target),
+                      'text-gray-300': !isCurrent(i.target),
+                      'hover:bg-gray-700': !isCurrent(i.target),
+                      'hover:text-white': !isCurrent(i.target)
+                    }"
+                    v-text="i.name"
+                    @click="go(i.target)"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="
+                absolute
+                inset-y-0
+                right-0
+                flex
+                items-center
+                pr-2
+                sm:static sm:inset-auto sm:ml-6 sm:pr-0
+              "
+            ></div>
+          </div>
+        </div>
+
+        <div class="sm:hidden" id="mobile-menu" v-show="show_menu">
+          <div class="px-2 pt-2 pb-3 space-y-1">
+            <button
+              v-for="(i, j) in menu"
+              :key="j"
+              :aria-current="isCurrent(i.target) ? 'current' : ''"
+              class="w-full text-left block px-3 py-2 rounded-md text-base font-medium"
+              :class="{
+              'bg-gray-900': isCurrent(i.target),
+              'text-white': isCurrent(i.target),
+              'text-gray-300': !isCurrent(i.target),
+              'hover:bg-gray-700': !isCurrent(i.target),
+              'hover:text-white': !isCurrent(i.target)
+            }"
+              v-text="i.name"
+              @click="go(i.target)"
+            />
+          </div>
+        </div>
+      </nav>
+      <router-view />
+    </div>
+  </body>
+</html>
