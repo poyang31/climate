@@ -18,6 +18,7 @@ if __name__ == "__main__":
 
     # Start subprocesses
     for do in subprocesses:
+        temp=[]
         do.start()
 
     # Blcok main process

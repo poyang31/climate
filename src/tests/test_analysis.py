@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from collections import Counter
 from ..kernel import Config, Database
 from ..crawler.models import Article
@@ -16,7 +17,9 @@ def test_example():
     count=Counter(temp)
     common=count.most_common()
     df=pd.DataFrame(common)
-    df=df.iloc[0:30]
+    df=df.iloc[0:10]    
     print(df)
+    df.plot(kind='bar')
+    plt.show()
 
     
