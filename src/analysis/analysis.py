@@ -34,7 +34,8 @@ class Analysis(Process):
         if articles_collection.count_documents({}) < 10000:
             time.sleep(30)
             return self.run()
-        articles = list(articles_collection.find({}))
+        articles = [Article.parse_obj(i) for i in articles_collection.find({})]
+        assert isinstance(articles, List[Article])
         self.storage_results(database, self.do(articles))
         sleep(300)
         self.run()
