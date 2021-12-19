@@ -9,8 +9,8 @@ if __name__ == "__main__":
     config = Config()
 
     background_tasks = [
-        # Analysis,
-        # Crawler
+         Analysis,
+         Crawler
     ]
 
     # Instance subprocesses

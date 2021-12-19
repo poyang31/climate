@@ -1,5 +1,6 @@
 import string
 import time
+from pathlib import Path
 from unicodedata import normalize
 from abc import ABC, abstractmethod
 from typing import Generator, Any
@@ -13,6 +14,8 @@ from scrapy.selector import SelectorList
 
 from .models import Article
 from ..kernel import Config, Database
+
+root_path = Path(__file__).parent.resolve()
 
 
 class Spider(ABC, Prototype):
@@ -43,19 +46,19 @@ class Spider(ABC, Prototype):
         self.config = config
         self.database = Database(self.config)
         self.collection = self.database.get_collection("articles")
+        with open(f'{root_path}/../../explode_filter.txt', 'r') as f:
+            self.stoplist = f.read().split("\n")
 
-    @staticmethod
-    def explode(text: str) -> filter:
+    def explode(self, text: str) -> filter:
         def remover_(s: str) -> bool:
             i = s.strip()
-            return (i != "") and (i != "\n") and (i not in string.punctuation)
+            return (i != "") and (i != "\n") and (i not in string.punctuation) and (i not in self.stoplist)
 
         text = normalize('NFKC', text)
-        return filter(remover_, jieba.cut(text, use_paddle=True))
+        return filter(remover_, jieba.cut(text, cut_all=False))
 
-    @classmethod
-    def explode_as_list(cls, text: str) -> list:
-        return list(cls.explode(text))
+    def explode_as_list(self, text: str) -> list:
+        return list(self.explode(text))
 
     @staticmethod
     def clear_html_tags(text: str) -> str:
