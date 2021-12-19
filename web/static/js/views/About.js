@@ -9,6 +9,10 @@ export default {
       {
         name: "Arymax",
         website: "https://github.com/arymax"
+      },
+      {
+        name: "a789363",
+        website: "https://github.com/a789363"
       }
     ]
   }),

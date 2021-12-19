@@ -1,5 +1,6 @@
 import string
 import time
+from unicodedata import normalize
 from abc import ABC, abstractmethod
 from typing import Generator, Any
 
@@ -49,6 +50,7 @@ class Spider(ABC, Prototype):
             i = s.strip()
             return (i != "") and (i != "\n") and (i not in string.punctuation)
 
+        text = normalize('NFKC', text)
         return filter(remover_, jieba.cut(text, use_paddle=True))
 
     @classmethod
