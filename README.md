@@ -1,6 +1,6 @@
 # Climate
 
-The analyzer for Internet trends.
+The analyzer for Internet trends in Taiwan.
 
 ## License
 

@@ -7,12 +7,12 @@ const app = new Vue({
     menu: [
       {
         type: "inner-link",
-        name: "Dashboard",
+        name: "主控台",
         target: "/",
       },
       {
         type: "inner-link",
-        name: "About",
+        name: "關於",
         target: "/about",
       },
     ],

@@ -11,6 +11,6 @@ setup(
     license='MIT License',
     author='Po-Yang Chen',
     author_email='poyang31@yahoo.com.tw',
-    description='The analyzer for Internet trends.',
+    description='The analyzer for Internet trends in Taiwan.',
     install_requires=requires
 )

@@ -16,4 +16,4 @@ def test_clear_html_tags():
 def test_explode():
     text = "testing.abc，這是測試 字串"
     output = Spider.explode(text)
-    print(list(output))
+    assert list(output) == ['testing', 'abc', '這是', '測試', '字串']

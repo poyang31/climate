@@ -21,19 +21,19 @@ export default {
   <div class="px-4 py-5 sm:px-6">
     <h3 class="text-lg leading-6 font-medium text-gray-900">Climate</h3>
     <p class="mt-1 max-w-2xl text-sm text-gray-500">
-      The analyzer for Internet trends.
+      臺灣網際網路聲量分析儀
     </p>
   </div>
   <div class="border-t border-gray-200">
     <dl>
       <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Dev Code</dt>
+        <dt class="text-sm font-medium text-gray-500">開發代號</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           hw_2021_12
         </dd>
       </div>
       <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Repository</dt>
+        <dt class="text-sm font-medium text-gray-500">儲存庫</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <a href="https://github.com/poyang31/hw_2021_12"
             >https://github.com/poyang31/hw_2021_12</a
@@ -41,7 +41,7 @@ export default {
         </dd>
       </div>
       <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Creator</dt>
+        <dt class="text-sm font-medium text-gray-500">開發者</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           {{ author.name }} (<a
             :href="author.website"
@@ -50,7 +50,7 @@ export default {
         </dd>
       </div>
       <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Contributors</dt>
+        <dt class="text-sm font-medium text-gray-500">貢獻者</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
           <ul
             role="list"
@@ -85,15 +85,15 @@ export default {
         </dd>
       </div>
       <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">License</dt>
+        <dt class="text-sm font-medium text-gray-500">授權</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          MIT License
+          <a href="https://git.io/JD9T3">MIT License</a>
         </dd>
       </div>
       <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Copyright</dt>
+        <dt class="text-sm font-medium text-gray-500">版權宣告</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          Copyright &copy; 2021 Po-Yang Chen(https://github.com/poyang31)
+          &copy; 2021 Po-Yang Chen(https://github.com/poyang31) 版權所有
         </dd>
       </div>
     </dl>
