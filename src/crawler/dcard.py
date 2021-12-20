@@ -3,6 +3,7 @@ import time
 import datetime
 from dateutil.parser import parse
 from scrapy.http import HtmlResponse
+from typing import Union
 from .models import Article
 from .spider import Spider
 from ..kernel import Config
@@ -19,12 +20,12 @@ class Dcard(Spider):
             'src.crawler.middlewares.ptt_cookies.CookiesMiddleware': 700
         })
 
-    def capture(self, response: HtmlResponse) -> None:
+    def capture(self, response: HtmlResponse) -> Union[Article, None]:
         # Get Title
         query = response.css("#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
         title = self.clear_html_tags_from_selectors(query)
         if title.strip() == "":
-            return
+            return None
         tag = "Unknown"
         # Get Class
         query = response.css(
@@ -42,23 +43,18 @@ class Dcard(Spider):
         query = response.xpath(
             '/html/body/div[1]/div[2]/div[2]/div/div/div/div/article/div[2]/div[2]/text()')
         time_ = self.clear_html_tags_from_selectors(query)
-        if len(time_) == 17:
+        if time_:
+            if len(time_) == 12:
+                current_time = datetime.datetime.now()
+                time_ = f"{current_time.year}年{time_}"
             struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")  # 轉成時間元組
-            time_stamp = int(time.mktime(struct_time))  # 轉成時間戳
-            created_time = updated_time = time_stamp
-        elif len(time_) == 12:
-            currentDateTime = datetime.datetime.now()  # 抓現在時間
-            date = currentDateTime.date()
-            year = date.strftime("%Y")  # 抓出年
-            time_ = year+"年"+time_  # 年分+時間合併
-            struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")  # 轉成時間元組
-            time_stamp = int(time.mktime(struct_time))  # 轉成時間戳
+            time_stamp = round(time.mktime(struct_time))
             created_time = updated_time = time_stamp
         else:
             created_time = 0
             updated_time = 0
-        # Storage
-        self.storage_article(Article(
+        # Return
+        return Article(
             origin=self.name,
             class_=class_,
             tag=tag,
@@ -68,4 +64,4 @@ class Dcard(Spider):
             words=words,
             created_time=created_time,
             updated_time=updated_time,
-        ))
+        )

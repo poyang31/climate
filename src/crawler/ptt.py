@@ -1,4 +1,5 @@
 from re import fullmatch
+from typing import Union
 
 from dateutil.parser import parse
 from scrapy.http import HtmlResponse
@@ -21,12 +22,12 @@ class PTT(Spider):
             'src.crawler.middlewares.ptt_cookies.CookiesMiddleware': 700
         })
 
-    def capture(self, response: HtmlResponse) -> None:
+    def capture(self, response: HtmlResponse) -> Union[Article, None]:
         # Get Full Title
         query = response.css("#main-content > div:nth-child(3) > span.article-meta-value")
         full_title = self.clear_html_tags_from_selectors(query)
         if full_title.strip() == "":
-            return
+            return None
         title_data = fullmatch(r"\[(.*?)\](.*?)", full_title)
         # Get Tag and Title
         if title_data is None:
@@ -50,8 +51,8 @@ class PTT(Spider):
         query = response.css('#main-content > div:nth-child(4) > span.article-meta-value')
         time_ = self.clear_html_tags_from_selectors(query)
         created_time = updated_time = round(parse(time_).timestamp())
-        # Storage
-        self.storage_article(Article(
+        # Return
+        return Article(
             origin=self.name,
             class_=class_,
             tag=tag,
@@ -61,4 +62,4 @@ class PTT(Spider):
             words=words,
             created_time=created_time,
             updated_time=updated_time
-        ))
+        )

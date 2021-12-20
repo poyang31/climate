@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 from unicodedata import normalize
 from abc import ABC, abstractmethod
-from typing import Generator, Any
+from typing import Generator, Any, Union
 
 import jieba
 from bs4 import BeautifulSoup
@@ -83,10 +83,12 @@ class Spider(ABC, Prototype):
         self.collection.insert_one(article.dict())
 
     @abstractmethod
-    def capture(self, response: HtmlResponse) -> None:
+    def capture(self, response: HtmlResponse) -> Union[Article, None]:
         pass
 
     def parse(self, response: HtmlResponse, **kwargs) -> Generator[Request, Any, None]:
         for link in self._extractor.extract_links(response):
             yield Request(link.url, callback=self.parse)
-        self.capture(response)
+        article = self.capture(response)
+        if article is not None:
+            self.storage_article(article)
