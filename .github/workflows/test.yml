@@ -18,6 +18,7 @@ jobs:
           python-version: '3.8'
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup
         run: cp config.sample.yaml config.yaml
       - name: Pytest Action Step
         id: pytest
