@@ -20,21 +20,18 @@ app.include_router(
     prefix="/filter",
     router=filter.router,
     tags=["filter"],
-    responses={418: {"description": "I'm a teapot"}},
 )
 
 app.include_router(
     prefix="/rank",
     router=rank.router,
     tags=["rank"],
-    responses={418: {"description": "I'm a teapot"}},
 )
 
 app.include_router(
     prefix="/statistics",
     router=statistics.router,
     tags=["statistics"],
-    responses={418: {"description": "I'm a teapot"}},
 )
 
 
