@@ -21,7 +21,7 @@ jobs:
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.7.0
         with:
-          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-version: 4.4
       - name: Setup
         run: cp config.sample.yaml config.yaml
       - name: Pytest Action Step
