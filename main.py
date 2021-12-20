@@ -9,8 +9,8 @@ if __name__ == "__main__":
     config = Config()
 
     background_tasks = [
-        # Analysis,
-        # Crawler
+        Analysis,
+        Crawler
     ]
 
     # Instance subprocesses
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     for do in subprocesses:
         do.start()
 
-    # Blcok main process
+    # Block main process
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
     # Stop subprocesses

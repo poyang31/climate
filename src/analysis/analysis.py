@@ -1,7 +1,10 @@
 import time
+from collections import Counter
 from multiprocessing import Process
 from time import sleep
 from typing import List
+
+from pandas import DataFrame
 
 from .models import Result
 from ..crawler.models import Article
@@ -14,9 +17,12 @@ class Analysis(Process):
         self.config = config
 
     @staticmethod
-    def do(article: List[Article]) -> List[Result]:
-        empty_result = Result()
-        return [empty_result]
+    def do(articles: List[Article]) -> List[Result]:
+        all_words_unpacked = [j for i in articles for j in i.words]
+        count = Counter(all_words_unpacked)
+        common = count.most_common()
+        data = DataFrame(common)
+        return data.iloc[0:10]
 
     @staticmethod
     def storage_results(database: Database, results: List[Result]) -> None:
