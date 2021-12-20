@@ -1,5 +1,5 @@
-export default {
-  name: "Statistics",
+const RankPie = {
+  name: "RankPie",
   extends: VueChartJs.Pie,
   data: () => ({
     levels: null,
@@ -34,4 +34,16 @@ export default {
     this.levels = response.data;
     this.renderChart(this.drawData, this.options);
   },
+}
+
+export default {
+  name: "Statistics",
+  components: {
+    RankPie
+  },
+  template: `
+<div class="w-full py-11 flex justify-center">
+  <rank-pie />
+</div>
+  `
 };
