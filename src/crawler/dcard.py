@@ -20,12 +20,12 @@ class Dcard(Spider):
         })
 
     def capture(self, response: HtmlResponse) -> None:
-        # Get Full Title
-        query = response.css(
-            "#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
-        full_title = self.clear_html_tags_from_selectors(query)
-        tag = "NONE"
-        title = full_title
+        # Get Title
+        query = response.css("#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
+        title = self.clear_html_tags_from_selectors(query)
+        if title.strip() == "":
+            return
+        tag = "Unknown"
         # Get Class
         query = response.css(
             "#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-3.jJbLey > div:nth-child(1) > a")
@@ -38,7 +38,6 @@ class Dcard(Spider):
         url = response.url
         # Get Words
         words = self.explode_as_list(content)
-
         # Get Times
         query = response.xpath(
             '/html/body/div[1]/div[2]/div[2]/div/div/div/div/article/div[2]/div[2]/text()')
