@@ -2,6 +2,7 @@ import time
 from multiprocessing import Process
 from time import sleep
 from typing import List
+from pandas import DataFrame
 
 from .models import Result
 from ..crawler.models import Article
@@ -24,9 +25,8 @@ class Analysis(Process):
                 temp.append(s)
         count = Counter(temp)
         common = count.most_common()
-        df = pd.DataFrame(common)
-        df = df.iloc[0:10]
-        return df
+        data = DataFrame(common)
+        return data.iloc[0:10]
 
     @staticmethod
     def storage_results(database: Database, results: List[Result]) -> None:
