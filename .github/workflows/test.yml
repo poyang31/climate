@@ -18,6 +18,10 @@ jobs:
           python-version: '3.8'
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - name: Setup
         run: cp config.sample.yaml config.yaml
       - name: Pytest Action Step
