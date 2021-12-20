@@ -1,9 +1,9 @@
-from re import fullmatch
-import time
 import datetime
-from dateutil.parser import parse
-from scrapy.http import HtmlResponse
+import time
 from typing import Union
+
+from scrapy.http import HtmlResponse
+
 from .models import Article
 from .spider import Spider
 from ..kernel import Config
@@ -22,7 +22,8 @@ class Dcard(Spider):
 
     def capture(self, response: HtmlResponse) -> Union[Article, None]:
         # Get Title
-        query = response.css("#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
+        query = response.css(
+            "#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
         title = self.clear_html_tags_from_selectors(query)
         if title.strip() == "":
             return None

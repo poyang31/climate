@@ -1,7 +1,8 @@
 from re import fullmatch
-from dateutil.parser import parse
-from scrapy.http import HtmlResponse
 from typing import Union
+
+from scrapy.http import HtmlResponse
+
 from .models import Article
 from .spider import Spider
 from ..kernel import Config

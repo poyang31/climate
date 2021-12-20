@@ -1,7 +1,9 @@
 import time
+from collections import Counter
 from multiprocessing import Process
 from time import sleep
 from typing import List
+
 from pandas import DataFrame
 
 from .models import Result
@@ -15,15 +17,9 @@ class Analysis(Process):
         self.config = config
 
     @staticmethod
-    def do(article: List[Article]) -> List[Result]:
-        config = Config()
-        database = Database(config)
-        articles_collection = database.get_collection("articles")
-        articles = [Article.parse_obj(i) for i in articles_collection.find({})]
-        for i in articles:
-            for s in i.words:
-                temp.append(s)
-        count = Counter(temp)
+    def do(articles: List[Article]) -> List[Result]:
+        all_words_unpacked = [j for i in articles for j in i.words]
+        count = Counter(all_words_unpacked)
         common = count.most_common()
         data = DataFrame(common)
         return data.iloc[0:10]

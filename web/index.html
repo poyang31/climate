@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Climate</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/vuex@2.0.0"></script>
@@ -9,18 +9,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="static/js/index.js" type="module"></script>
-  </head>
-  <body>
-    <div id="app">
-      <nav class="bg-blue-600">
+</head>
+<body>
+<div id="app">
+    <nav class="bg-blue-600">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div class="relative flex items-center justify-between h-16">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              <!-- Mobile menu button-->
-              <button
-                aria-controls="mobile-menu"
-                aria-expanded="false"
-                class="
+            <div class="relative flex items-center justify-between h-16">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button
+                            aria-controls="mobile-menu"
+                            aria-expanded="false"
+                            class="
                   inline-flex
                   items-center
                   justify-center
@@ -33,78 +33,78 @@
                   focus:ring-inset
                   focus:ring-white
                 "
-                type="button"
-              >
-                <span class="sr-only">Open main menu</span>
-                <svg
-                  aria-hidden="true"
-                  class="block h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  @click="show_menu=!show_menu"
-                >
-                  <path
-                    d="M4 6h16M4 12h16M4 18h16"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                </svg>
-                <svg
-                  aria-hidden="true"
-                  class="hidden h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 18L18 6M6 6l12 12"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div
-              class="
+                            type="button"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <svg
+                                @click="show_menu=!show_menu"
+                                aria-hidden="true"
+                                class="block h-6 w-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                            />
+                        </svg>
+                        <svg
+                                aria-hidden="true"
+                                class="hidden h-6 w-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                    d="M6 18L18 6M6 6l12 12"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                            />
+                        </svg>
+                    </button>
+                </div>
+                <div
+                        class="
                 flex-1 flex
                 items-center
                 justify-center
                 sm:items-stretch sm:justify-start
               "
-            >
-              <button
-                class="flex-shrink-0 flex items-center text-white"
-                @click="go('/')"
-              >
-                [ Climate ]
-              </button>
-              <div class="hidden sm:block sm:ml-6">
-                <div class="flex space-x-4">
-                  <button
-                    v-for="(i, j) in menu"
-                    :key="j"
-                    :aria-current="isCurrent(i.target) ? 'current' : ''"
-                    class="px-3 py-2 rounded-md text-sm font-medium"
-                    :class="{
+                >
+                    <button
+                            @click="go('/')"
+                            class="flex-shrink-0 flex items-center text-white"
+                    >
+                        [ Climate ]
+                    </button>
+                    <div class="hidden sm:block sm:ml-6">
+                        <div class="flex space-x-4">
+                            <button
+                                    :aria-current="isCurrent(i.target) ? 'current' : ''"
+                                    :class="{
                       'bg-blue-500': isCurrent(i.target),
                       'text-white': isCurrent(i.target),
                       'text-blue-300': !isCurrent(i.target),
                       'hover:bg-blue-700': !isCurrent(i.target),
                       'hover:text-white': !isCurrent(i.target)
                     }"
-                    v-text="i.name"
-                    @click="go(i.target)"
-                  />
+                                    :key="j"
+                                    @click="go(i.target)"
+                                    class="px-3 py-2 rounded-md text-sm font-medium"
+                                    v-for="(i, j) in menu"
+                                    v-text="i.name"
+                            />
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="
+                <div
+                        class="
                 absolute
                 inset-y-0
                 right-0
@@ -113,38 +113,38 @@
                 pr-2
                 sm:static sm:inset-auto sm:ml-6 sm:pr-0
               "
-            ></div>
-          </div>
+                ></div>
+            </div>
         </div>
 
         <div class="sm:hidden" id="mobile-menu" v-show="show_menu">
-          <div class="px-2 pt-2 pb-3 space-y-1">
-            <button
-              v-for="(i, j) in menu"
-              :key="j"
-              :aria-current="isCurrent(i.target) ? 'current' : ''"
-              class="w-full text-left block px-3 py-2 rounded-md text-base font-medium"
-              :class="{
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button
+                        :aria-current="isCurrent(i.target) ? 'current' : ''"
+                        :class="{
               'bg-blue-900': isCurrent(i.target),
               'text-white': isCurrent(i.target),
               'text-blue-300': !isCurrent(i.target),
               'hover:bg-blue-700': !isCurrent(i.target),
               'hover:text-white': !isCurrent(i.target)
             }"
-              v-text="i.name"
-              @click="go(i.target)"
-            />
-          </div>
+                        :key="j"
+                        @click="go(i.target)"
+                        class="w-full text-left block px-3 py-2 rounded-md text-base font-medium"
+                        v-for="(i, j) in menu"
+                        v-text="i.name"
+                />
+            </div>
         </div>
-      </nav>
-      <div>
-        <router-view />
-      </div>
-      <footer class="mt-16 pb-16 text-sm leading-6 text-center">
-          <div class="max-w-7xl mx-auto mt-11 divide-y divide-blue-200 px-4 sm:px-6 md:px-8">
-              &copy; 2021 <a href="https://github.com/poyang31">Po-Yang Chen</a>
-          </div>
-      </footer>
+    </nav>
+    <div>
+        <router-view/>
     </div>
-  </body>
+    <footer class="mt-16 pb-16 text-sm leading-6 text-center">
+        <div class="max-w-7xl mx-auto mt-11 divide-y divide-blue-200 px-4 sm:px-6 md:px-8">
+            &copy; 2021 <a href="https://github.com/poyang31">Po-Yang Chen</a>
+        </div>
+    </footer>
+</div>
+</body>
 </html>

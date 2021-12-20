@@ -1,9 +1,9 @@
 import string
 import time
-from pathlib import Path
-from unicodedata import normalize
 from abc import ABC, abstractmethod
+from pathlib import Path
 from typing import Generator, Any, Union
+from unicodedata import normalize
 
 import jieba
 from bs4 import BeautifulSoup
