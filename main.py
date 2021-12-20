@@ -9,8 +9,8 @@ if __name__ == "__main__":
     config = Config()
 
     background_tasks = [
-        # Analysis,
-        # Crawler
+         Analysis,
+         Crawler
     ]
 
     # Instance subprocesses
@@ -18,6 +18,7 @@ if __name__ == "__main__":
 
     # Start subprocesses
     for do in subprocesses:
+        temp=[]
         do.start()
 
     # Blcok main process

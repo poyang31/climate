@@ -15,8 +15,18 @@ class Analysis(Process):
 
     @staticmethod
     def do(article: List[Article]) -> List[Result]:
-        empty_result = Result()
-        return [empty_result]
+        config = Config()
+        database = Database(config)
+        articles_collection = database.get_collection("articles")
+        articles = [Article.parse_obj(i) for i in articles_collection.find({})]
+        for i in articles:
+            for s in i.words:
+                temp.append(s)
+        count = Counter(temp)
+        common = count.most_common()
+        df = pd.DataFrame(common)
+        df = df.iloc[0:10]
+        return df
 
     @staticmethod
     def storage_results(database: Database, results: List[Result]) -> None:
