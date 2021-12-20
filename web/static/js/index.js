@@ -12,7 +12,7 @@ const app = new Vue({
       },
       {
         type: "inner-link",
-        name: "關鍵字排行",
+        name: "十大關鍵字排行",
         target: "/rank",
       },
       {

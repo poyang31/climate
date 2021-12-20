@@ -9,10 +9,11 @@ from ..kernel import Config
 
 
 class Crawler(Process):
+    crawlers = [PTT, Dcard, Gamer]
+
     def __init__(self, config: Config):
         super().__init__()
         self.config = config
-        self.crawlers = [PTT, Dcard, Gamer]
 
     def run(self) -> None:
         process = CrawlerProcess()

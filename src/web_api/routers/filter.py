@@ -4,20 +4,22 @@ from fastapi import APIRouter
 from pymongo import DESCENDING
 
 from . import articles_collection
+from ...crawler import Crawler
 from ...crawler.models import Article
+from ...crawler.ptt import PTT
 
 router = APIRouter()
 
 
 @router.get("/")
-def read_filter(keyword: str = "", page: int = 1) -> Union[list, None]:
-    if page < 0 or not keyword:
-        return None
-    offset = (page - 1) * 10
-    limit = page * 10
-    result = articles_collection \
-        .find({"words": {"$in": [keyword]}}) \
-        .sort("updated_time", DESCENDING) \
-        .skip(offset) \
-        .limit(limit)
-    return [Article.parse_obj(i) for i in result]
+def read_filter(keyword: str = "") -> Union[dict, None]:
+    count = articles_collection \
+        .count_documents({"words": {"$in": [keyword]}})
+    origin_count = {
+        i.name: articles_collection.count_documents({"origin": i.name, "words": {"$in": [keyword]}})
+        for i in Crawler.crawlers
+    }
+    return {
+        "count": count,
+        "origin_count": origin_count
+    }

@@ -10,7 +10,8 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: "/filter",
+    path: "/filter/:keyword",
+    props: true,
     component: Filter,
   },
   {
