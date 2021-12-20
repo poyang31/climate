@@ -7,7 +7,7 @@ export default {
     },
     contributors: [
       {
-        name: "Arymax",
+        name: "arymax",
         website: "https://github.com/arymax"
       },
       {

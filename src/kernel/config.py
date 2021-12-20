@@ -5,11 +5,11 @@ from typing import Any
 from jmespath import search
 from yaml import load, FullLoader
 
-root_path = Path(__file__).parent.resolve()
+current_path = Path(__file__).parent.resolve()
 
 
 class Config:
-    PATH = f"{root_path}/../../config.yaml"
+    PATH = f"{current_path}/../../config.yaml"
 
     def __init__(self):
         if not isfile(self.PATH):

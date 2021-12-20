@@ -1,25 +1,43 @@
 from pathlib import Path
-from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
+from .routers import filter, rank, statistics
+
 app = FastAPI()
 
-root_path = Path(__file__).parent.resolve()
+current_path = Path(__file__).parent.resolve()
+
 app.mount(
-    "/static",
-    StaticFiles(directory=f"{root_path}/../../web/static"),
+    path="/static",
+    app=StaticFiles(directory=f"{current_path}/../../web/static"),
     name="static"
+)
+
+app.include_router(
+    prefix="/filter",
+    router=filter.router,
+    tags=["filter"],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+app.include_router(
+    prefix="/rank",
+    router=rank.router,
+    tags=["rank"],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+app.include_router(
+    prefix="/statistics",
+    router=statistics.router,
+    tags=["statistics"],
+    responses={418: {"description": "I'm a teapot"}},
 )
 
 
 @app.get("/")
 async def read_index():
-    return FileResponse('web/index.html')
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+    return FileResponse(f"{current_path}/../../web/index.html")
