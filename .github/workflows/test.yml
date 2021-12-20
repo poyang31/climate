@@ -22,6 +22,9 @@ jobs:
         uses: supercharge/mongodb-github-action@1.7.0
         with:
           mongodb-version: 4.4
+          mongodb-port: 27017
+      - name: Setup
+        run: cp config.sample.yaml config.yaml
       - name: Setup
         run: cp config.sample.yaml config.yaml
       - name: Pytest Action Step
@@ -30,3 +33,5 @@ jobs:
         with:
           pytest_args: '-s'
           requirements_file: 'requirements.txt'
+        env:
+          APP_ENV: test

@@ -1,4 +1,5 @@
 from collections import Counter
+from os import getenv
 from pathlib import Path
 
 from matplotlib.pyplot import savefig
@@ -13,6 +14,8 @@ database = Database(config)
 
 
 def test_rank():
+    if getenv("APP_ENV") == "test":
+        return
     articles_collection = database.get_collection("articles")
     articles = [Article.parse_obj(i) for i in articles_collection.find({})]
     all_words_unpacked = [j for i in articles for j in i.words]
