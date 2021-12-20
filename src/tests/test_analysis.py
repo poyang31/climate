@@ -14,7 +14,8 @@ database = Database(config)
 
 
 def test_rank():
-    if getenv("APP_ENV") == "test":
+    # The test is not suitable for CI
+    if getenv("PLATFORM") == "ci":
         return
     articles_collection = database.get_collection("articles")
     articles = [Article.parse_obj(i) for i in articles_collection.find({})]

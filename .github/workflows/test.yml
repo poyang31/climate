@@ -34,4 +34,4 @@ jobs:
           pytest_args: '-s'
           requirements_file: 'requirements.txt'
         env:
-          APP_ENV: test
+          PLATFORM: ci

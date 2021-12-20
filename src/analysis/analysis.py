@@ -17,12 +17,22 @@ class Analysis(Process):
         self.config = config
 
     @staticmethod
-    def do(articles: List[Article]) -> List[Result]:
+    def common(articles: List[Article]) -> DataFrame:
         all_words_unpacked = [j for i in articles for j in i.words]
         count = Counter(all_words_unpacked)
         common = count.most_common()
         data = DataFrame(common)
         return data.iloc[0:10]
+
+    @classmethod
+    def do(cls, articles: List[Article]) -> List[Result]:
+        tasks = {
+            "common": cls.common
+        }
+        return [
+            Result(name=i, content=j(articles))
+            for i, j in tasks.items()
+        ]
 
     @staticmethod
     def storage_results(database: Database, results: List[Result]) -> None:

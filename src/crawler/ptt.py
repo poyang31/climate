@@ -49,11 +49,24 @@ class PTT(Spider):
         # Get Words
         words = self.explode_as_list(content)
         # Get Times
-        query = response.css('#main-content > div:nth-child(4) > span.article-meta-value')
+        query = response.css("#main-content > div:nth-child(4) > span.article-meta-tag")
         if query is None:
-            query = response.css("#main-content > div:nth-child(3) > span.article-meta-value")
-        time_ = self.clear_html_tags_from_selectors(query)
-        created_time = updated_time = self.human_to_unix_timestamp(time_[:24])
+            query = response.css("#main-content > div:nth-child(3) > span.article-meta-tag")
+        if "時間" == self.clear_html_tags_from_selectors(query):
+            query = response.css('#main-content > div:nth-child(4) > span.article-meta-value')
+            if query is None:
+                query = response.css("#main-content > div:nth-child(3) > span.article-meta-value")
+            time_ = self.clear_html_tags_from_selectors(query)
+            created_time = updated_time = self.human_to_unix_timestamp(time_[:24])
+        elif "發信站" == self.clear_html_tags_from_selectors(query):
+            query = response.css('#main-content > div:nth-child(4) > span.article-meta-value')
+            if query is None:
+                query = response.css("#main-content > div:nth-child(3) > span.article-meta-value")
+            time_ = self.clear_html_tags_from_selectors(query)
+            time_ = fullmatch(r"(.*?) \((.*?)\)", time_).group(2)
+            created_time = updated_time = self.human_to_unix_timestamp(time_[:24])
+        else:
+            created_time = updated_time = -1
         # Return
         return Article(
             origin=self.name,

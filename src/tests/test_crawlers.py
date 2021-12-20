@@ -51,7 +51,8 @@ def test_spider_ptt():
 
 
 def test_spider_dcard():
-    if getenv("APP_ENV") == "test":
+    # It seems Dcard has been banned the IP from CI server, ignore the test
+    if getenv("PLATFORM") == "ci":
         return
     url = "https://www.dcard.tw/f/youtuber/p/237697654"
     response = get_response(url)

@@ -9,8 +9,8 @@ WORKDIR /app
 COPY . /app
 
 # Initialize working environment
-RUN apk add build-base
-RUN python setup.py install
+RUN apk add build-base libxml2-dev libxslt-dev
+RUN pip install -r requirements.txt
 
 # Disable python buffered for display
 ENV PYTHONUNBUFFERED true
