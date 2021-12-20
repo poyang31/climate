@@ -4,14 +4,11 @@ from requests import get
 from scrapy.http import HtmlResponse
 
 from src.crawler.fake_crawler import FakeCrawler
+from . import config
 from ..crawler.dcard import Dcard
 from ..crawler.gamer import Gamer
 from ..crawler.ptt import PTT
 from ..crawler.spider import Spider
-from ..kernel import Config, Database
-
-config = Config()
-database = Database(config)
 
 
 def get_response(url: str, **kwargs) -> HtmlResponse:

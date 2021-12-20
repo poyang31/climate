@@ -4,5 +4,5 @@ router = APIRouter()
 
 
 @router.get("/")
-def read_filter():
+def read_statistics():
     pass

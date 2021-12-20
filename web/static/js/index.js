@@ -12,6 +12,16 @@ const app = new Vue({
       },
       {
         type: "inner-link",
+        name: "關鍵字排行",
+        target: "/rank",
+      },
+      {
+        type: "inner-link",
+        name: "字詞圖表分析",
+        target: "/statistics",
+      },
+      {
+        type: "inner-link",
         name: "關於",
         target: "/about",
       },

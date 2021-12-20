@@ -5,12 +5,10 @@ from pathlib import Path
 from matplotlib.pyplot import savefig
 from pandas import DataFrame
 
+from . import database
 from ..crawler.models import Article
-from ..kernel import Config, Database
 
 current_path = Path(__file__).parent.resolve()
-config = Config()
-database = Database(config)
 
 
 def test_rank():
