@@ -41,7 +41,6 @@ class Analysis(Process):
             time.sleep(30)
             return self.run()
         articles = [Article.parse_obj(i) for i in articles_collection.find({})]
-        assert isinstance(articles, List[Article])
         self.storage_results(database, self.do(articles))
         sleep(300)
         self.run()

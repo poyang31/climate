@@ -9,7 +9,7 @@ current_path = Path(__file__).parent.resolve()
 
 
 class Config:
-    PATH = f"{current_path}/../../config.yaml"
+    PATH = Path(f"{current_path}/../../config.yaml").absolute()
 
     def __init__(self):
         if not isfile(self.PATH):

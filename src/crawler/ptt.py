@@ -1,7 +1,6 @@
 from re import fullmatch
 from typing import Union
 
-from dateutil.parser import parse
 from scrapy.http import HtmlResponse
 
 from .models import Article
@@ -36,6 +35,8 @@ class PTT(Spider):
         else:
             tag = title_data.group(1)
             title = title_data.group(2)
+        tag = tag.strip()
+        title = title.strip()
         # Get Class
         query = response.css(
             "#main-content > div.article-metaline-right > span.article-meta-value")
@@ -49,8 +50,10 @@ class PTT(Spider):
         words = self.explode_as_list(content)
         # Get Times
         query = response.css('#main-content > div:nth-child(4) > span.article-meta-value')
+        if query is None:
+            query = response.css("#main-content > div:nth-child(3) > span.article-meta-value")
         time_ = self.clear_html_tags_from_selectors(query)
-        created_time = updated_time = round(parse(time_).timestamp())
+        created_time = updated_time = self.human_to_unix_timestamp(time_[:24])
         # Return
         return Article(
             origin=self.name,

@@ -6,19 +6,12 @@ from scrapy.http import HtmlResponse
 
 from .models import Article
 from .spider import Spider
-from ..kernel import Config
 
 
 class Dcard(Spider):
     name = "Dcard"
     allowed_domains = ['dcard.tw']
     start_urls = ["https://dcard.tw"]
-
-    def __init__(self, config: Config):
-        super().__init__(config)
-        self.DOWNLOADER_MIDDLEWARES.update({
-            'src.crawler.middlewares.ptt_cookies.CookiesMiddleware': 700
-        })
 
     def capture(self, response: HtmlResponse) -> Union[Article, None]:
         # Get Title
@@ -45,15 +38,14 @@ class Dcard(Spider):
             '/html/body/div[1]/div[2]/div[2]/div/div/div/div/article/div[2]/div[2]/text()')
         time_ = self.clear_html_tags_from_selectors(query)
         if time_:
-            if len(time_) == 12:
+            if "年" not in time_:
                 current_time = datetime.datetime.now()
                 time_ = f"{current_time.year}年{time_}"
-            struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")  # 轉成時間元組
+            struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")
             time_stamp = round(time.mktime(struct_time))
             created_time = updated_time = time_stamp
         else:
-            created_time = 0
-            updated_time = 0
+            raise Exception("Time is not exists")
         # Return
         return Article(
             origin=self.name,
