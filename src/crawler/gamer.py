@@ -1,7 +1,6 @@
 from re import fullmatch
 from typing import Union
 
-from dateutil.parser import parse
 from scrapy.http import HtmlResponse
 
 from .models import Article

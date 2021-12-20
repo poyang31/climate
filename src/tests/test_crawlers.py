@@ -1,3 +1,5 @@
+from os import getenv
+
 from requests import get
 from scrapy.http import HtmlResponse
 
@@ -49,6 +51,8 @@ def test_spider_ptt():
 
 
 def test_spider_dcard():
+    if getenv("APP_ENV") == "test":
+        return
     url = "https://www.dcard.tw/f/youtuber/p/237697654"
     response = get_response(url)
     crawler = Dcard(config)
