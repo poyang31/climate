@@ -10,14 +10,15 @@ on:
 
 jobs:
   test:
+    name: Testing via Pytest
     runs-on: ubuntu-latest
-    name: Pytest passing tests
     steps:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
       - name: Checkout
         uses: actions/checkout@v2
+        run: cp config.sample.yaml config.yaml
       - name: Pytest Action Step
         id: pytest
         uses: paolorechia/fast-pytest-github-action@develop
