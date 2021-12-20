@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Building image to Dockerhub
+    name: Building image to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU

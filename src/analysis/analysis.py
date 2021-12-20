@@ -5,6 +5,7 @@ from time import sleep
 from typing import List
 
 from pandas import DataFrame
+from pymongo.collection import Collection
 
 from .models import Result
 from ..crawler.models import Article
@@ -17,12 +18,14 @@ class Analysis(Process):
         self.config = config
 
     @staticmethod
-    def common(articles: List[Article]) -> DataFrame:
+    def common(articles: List[Article]) -> str:
         all_words_unpacked = [j for i in articles for j in i.words]
         count = Counter(all_words_unpacked)
         common = count.most_common()
         data = DataFrame(common)
-        return data.iloc[0:10]
+        result = data.iloc[0:10]
+        assert isinstance(result, DataFrame)
+        return result.to_json()
 
     @classmethod
     def do(cls, articles: List[Article]) -> List[Result]:
@@ -44,13 +47,16 @@ class Analysis(Process):
         results_collection = database.get_collection("results")
         results_collection.insert_many(result_dicts)
 
+    def execute(self, database: Database, articles_collection: Collection) -> None:
+        if articles_collection.count_documents({}) > 10000:
+            articles = [Article.parse_obj(i) for i in articles_collection.find({})]
+            self.storage_results(database, self.do(articles))
+            sleep(300)
+        else:
+            time.sleep(30)
+
     def run(self) -> None:
         database = Database(self.config)
         articles_collection = database.get_collection("articles")
-        if articles_collection.count_documents({}) < 10000:
-            time.sleep(30)
-            return self.run()
-        articles = [Article.parse_obj(i) for i in articles_collection.find({})]
-        self.storage_results(database, self.do(articles))
-        sleep(300)
-        self.run()
+        while True:
+            self.execute(database, articles_collection)
