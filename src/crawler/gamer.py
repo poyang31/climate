@@ -18,18 +18,18 @@ class Gamer(Spider):
         })
 
     def capture(self, response: HtmlResponse) -> None:
-        query = response.xpath(
-            "/html/body/div[5]/div/div[2]/section[2]/div[2]/div[1]/h1")
+        query = response.xpath("/html/body/div[5]/div/div[2]/section[2]/div[2]/div[1]/h1")
         full_title = self.clear_html_tags_from_selectors(query)
-        if full_title.strip() != "":
-            title_data = fullmatch(r"\【(.*?)\】(.*?)", full_title)
-            # Get Tag and Title
-            if title_data is None:
-                tag = "Unknown"
-                title = full_title
-            else:
-                tag = title_data.group(1)
-                title = title_data.group(2)
+        if full_title.strip() == "":
+            return
+        title_data = fullmatch(r"\【(.*?)\】(.*?)", full_title)
+        # Get Tag and Title
+        if title_data is None:
+            tag = "Unknown"
+            title = full_title
+        else:
+            tag = title_data.group(1)
+            title = title_data.group(2)
         # Get Class
         # ToDo: 抓不到版名 只顯示[]
         query = response.xpath('/html/body/div[3]/ul/li[1]/a')

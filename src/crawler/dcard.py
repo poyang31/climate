@@ -21,7 +21,8 @@ class Dcard(Spider):
 
     def capture(self, response: HtmlResponse) -> None:
         # Get Full Title
-        query = response.css("#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
+        query = response.css(
+            "#__next > div.bvk29r-0.eFPEdc > div.bvk29r-2.etVvYS > div > div > div > div > article > div.sc-1eorkjw-1.ccTaOU > div > h1")
         full_title = self.clear_html_tags_from_selectors(query)
         tag = "NONE"
         title = full_title
@@ -45,7 +46,7 @@ class Dcard(Spider):
         if len(time_) == 17:
             struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")  # 轉成時間元組
             time_stamp = int(time.mktime(struct_time))  # 轉成時間戳
-            created_time = time_stamp
+            created_time = updated_time = time_stamp
         elif len(time_) == 12:
             currentDateTime = datetime.datetime.now()  # 抓現在時間
             date = currentDateTime.date()
@@ -53,7 +54,7 @@ class Dcard(Spider):
             time_ = year+"年"+time_  # 年分+時間合併
             struct_time = time.strptime(time_, "%Y年%m月%d日 %H:%M")  # 轉成時間元組
             time_stamp = int(time.mktime(struct_time))  # 轉成時間戳
-            created_time = time_stamp
+            created_time = updated_time = time_stamp
         else:
             created_time = 0
             updated_time = 0
