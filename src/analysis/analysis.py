@@ -23,8 +23,7 @@ class Analysis(Process):
         count = Counter(all_words_unpacked)
         common = count.most_common()
         data = DataFrame(common)
-        result = data.iloc[0:10]
-        assert isinstance(result, DataFrame)
+        result: DataFrame = data.iloc[0:10]
         return result.to_json()
 
     @classmethod
