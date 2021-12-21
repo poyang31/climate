@@ -21,7 +21,7 @@ if __name__ == "__main__":
         do.start()
 
     # Block main process
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=7351)
 
     # Stop subprocesses
     for do in subprocesses:

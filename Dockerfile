@@ -16,7 +16,7 @@ RUN pip install -r requirements.txt
 ENV PYTHONUNBUFFERED true
 
 # Expose Port
-EXPOSE 8080
+EXPOSE 7351
 
 # Execute Climate
 CMD ["python", "main.py"]
