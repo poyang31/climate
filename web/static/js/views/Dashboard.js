@@ -6,7 +6,7 @@ export default {
   methods: {
     search() {
         if (!this.keyword) return
-        this.$router.push(`/filter/${this.keyword}`)
+        this.$router.push(`/search/${this.keyword}`)
     }
   },
   template: `

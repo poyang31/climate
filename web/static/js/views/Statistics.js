@@ -1,3 +1,10 @@
+const dynamicColors = () => {
+  const r = Math.floor(Math.random() * 100 + 150);
+  const g = Math.floor(Math.random() * 100 + 150);
+  const b = Math.floor(Math.random() * 100 + 150);
+  return "rgb(" + r + "," + g + "," + b + ")";
+};
+
 const RankPie = {
   name: "RankPie",
   extends: VueChartJs.Pie,
@@ -11,18 +18,7 @@ const RankPie = {
         datasets: [
           {
             data: Object.values(this.levels),
-            backgroundColor: [
-              "rgb(255, 99, 132)",
-              "rgb(54, 162, 235)",
-              "rgb(255, 205, 86)",
-              "rgb(255, 199, 132)",
-              "rgb(164, 162, 235)",
-              "rgb(255, 205, 86)",
-              "rgb(255, 159, 132)",
-              "rgb(354, 162, 235)",
-              "rgb(255, 205, 86)",
-              "rgb(255, 205, 86)",
-            ],
+            backgroundColor: Object.keys(this.levels).map(dynamicColors),
             hoverOffset: 4,
           },
         ],
@@ -34,16 +30,16 @@ const RankPie = {
     this.levels = response.data;
     this.renderChart(this.drawData, this.options);
   },
-}
+};
 
 export default {
   name: "Statistics",
   components: {
-    RankPie
+    RankPie,
   },
   template: `
 <div class="w-full py-11 flex justify-center">
   <rank-pie />
 </div>
-  `
+  `,
 };

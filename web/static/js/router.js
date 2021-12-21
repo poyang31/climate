@@ -1,5 +1,5 @@
 import Dashboard from "./views/Dashboard.js";
-import Filter from "./views/Filter.js";
+import Search from "./views/Search.js";
 import Rank from "./views/Rank.js";
 import Statistics from "./views/Statistics.js";
 import About from "./views/About.js";
@@ -10,9 +10,9 @@ const routes = [
     component: Dashboard,
   },
   {
-    path: "/filter/:keyword",
+    path: "/search/:keyword",
     props: true,
-    component: Filter,
+    component: Search,
   },
   {
     path: "/rank",
@@ -26,6 +26,12 @@ const routes = [
     path: "/about",
     component: About,
   },
+  {
+    path: "*",
+    component: {
+      template: '<div class="py-5 text-center">404 Not Found</div>'
+    }
+  }
 ];
 
 export default new VueRouter({
