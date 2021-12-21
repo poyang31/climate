@@ -40,7 +40,7 @@ def test_explode():
 def test_unique_filter():
     list_ = ["ouo", "ouo", "owo"]
     output = fake_crawler.unique_filter(list_)
-    assert output == ['ouo', 'owo']
+    assert output.sort() == ['ouo', 'owo'].sort()
 
 
 def test_spider_ptt():
