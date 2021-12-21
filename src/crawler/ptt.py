@@ -47,7 +47,7 @@ class PTT(Spider):
         # Get URL
         url = response.url
         # Get Words
-        words = self.explode_as_list(content)
+        words = self.unique_filter(self.explode_as_list(content))
         # Get Times
         query = response.css("#main-content > div:nth-child(4) > span.article-meta-tag")
         if query is None:

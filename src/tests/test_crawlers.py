@@ -10,6 +10,8 @@ from ..crawler.gamer import Gamer
 from ..crawler.ptt import PTT
 from ..crawler.spider import Spider
 
+fake_crawler = FakeCrawler(config)
+
 
 def get_response(url: str, **kwargs) -> HtmlResponse:
     headers = {"user-agent": Spider.FAKEUSERAGENT_FALLBACK}
@@ -25,14 +27,20 @@ def get_response(url: str, **kwargs) -> HtmlResponse:
 
 def test_clear_html_tags():
     text = "<p>testing</p>"
-    output = FakeCrawler.clear_html_tags(text)
+    output = fake_crawler.clear_html_tags(text)
     assert output == "testing"
 
 
 def test_explode():
     text = "testing.abc，這是測試 字串"
-    output = FakeCrawler(config).explode(text)
+    output = fake_crawler.explode(text)
     assert list(output) == ['testing', 'abc', '這是', '測試', '字串']
+
+
+def test_unique_filter():
+    list_ = ["ouo", "ouo", "owo"]
+    output = fake_crawler.unique_filter(list_)
+    assert output == ['ouo', 'owo']
 
 
 def test_spider_ptt():
@@ -48,7 +56,7 @@ def test_spider_ptt():
 
 
 def test_spider_dcard():
-    # It seems Dcard has been banned the IP from CI server, ignore the test
+    # It seems Dcard has banned the IP which from CI server, ignore the test
     if getenv("PLATFORM") == "ci":
         return
     url = "https://www.dcard.tw/f/youtuber/p/237697654"

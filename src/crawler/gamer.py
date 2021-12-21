@@ -27,7 +27,7 @@ class Gamer(Spider):
         # Get URL
         url = response.url
         # Get Words
-        words = self.explode_as_list(content)
+        words = self.unique_filter(self.explode_as_list(content))
         # Get Times
         query = response.xpath('/html/body/div[5]/div/div[2]/section[2]/div[2]/div[1]/div[3]/a')
         if query:

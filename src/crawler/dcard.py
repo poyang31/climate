@@ -32,7 +32,7 @@ class Dcard(Spider):
         # Get URL
         url = response.url
         # Get Words
-        words = self.explode_as_list(content)
+        words = self.unique_filter(self.explode_as_list(content))
         # Get Times
         query = response.xpath(
             '/html/body/div[1]/div[2]/div[2]/div/div/div/div/article/div[2]/div[2]/text()')

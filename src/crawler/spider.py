@@ -83,6 +83,10 @@ class Spider(ABC, Prototype):
         article.captured_time = round(time.time())
         self.collection.insert_one(article.dict())
 
+    @staticmethod
+    def unique_filter(list_: list) -> list:
+        return list(set(list_))
+
     @abstractmethod
     def capture(self, response: HtmlResponse) -> Union[Article, None]:
         pass
