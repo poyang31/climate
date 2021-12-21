@@ -15,5 +15,8 @@ RUN pip install -r requirements.txt
 # Disable python buffered for display
 ENV PYTHONUNBUFFERED true
 
+# Expose Port
+EXPOSE 8080
+
 # Execute Climate
 CMD ["python", "main.py"]
